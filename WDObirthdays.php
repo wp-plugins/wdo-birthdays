@@ -2,7 +2,7 @@
 /*
 Plugin Name: WDO Birthdays
 Plugin URI: http://www.webdevsonline.com
-Description: Displays members birthdays, how old they are and a Happy Birthday message on a page or widget. For more information, or if you need help with the plugin, or to request an update, email us at contact@webdevsonline.com.
+Description: Displays birthdays for the current day via a widget, users can hide their birthday if they wish to. For more information, or if you need help with the plugin, or to request an update, email us at contact@webdevsonline.com.
 Version: 1.0.1
 Author: Web Devs Online
 Author URI: http://www.webdevsonline.com
