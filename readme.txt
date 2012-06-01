@@ -11,10 +11,10 @@ Tested up to: 3.3.2
 
 --------------------
 
-Plugin version 1.0.1
+Plugin version 1.1.2
 
 --------------------
 
-Please note WDO Birthdays is not designed for multiple installations.
+Please note WDO Birthdays should automatically acquire your database prefix, please email if you have difficulties.
 
 

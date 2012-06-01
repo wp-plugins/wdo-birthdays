@@ -3,7 +3,7 @@
 Plugin Name: WDO Birthdays
 Plugin URI: http://www.webdevsonline.com
 Description: Displays birthdays for the current day via a widget, users can hide their birthday if they wish to. For more information, or if you need help with the plugin, or to request an update, email us at contact@webdevsonline.com.
-Version: 1.0.1
+Version: 1.1.2
 Author: Web Devs Online
 Author URI: http://www.webdevsonline.com
 
@@ -29,6 +29,7 @@ echo '<link rel="stylesheet" type="text/css" href="'.$pluginurl.'WDObirthdaystyl
 add_action( 'wp_head', 'WDObirthdaystyle' );
 
 function list_birthdays() {
+
     ?>
     <h3><?php _e('Birthday Info', 'your_textdomain'); ?></h3>
     <table class="form-table">
@@ -40,13 +41,14 @@ function list_birthdays() {
 	<?php 
 	global $profileuser;
 	$user_id = $profileuser->ID;
-	/*echo $user_id;*/
+	global $wpdb;
+	$prefix = $wpdb->prefix;
 	
-	$sql = mysql_query('select meta_value from wp_usermeta where meta_key = "birthday_day" AND user_id ='.$user_id.'');
+	$sql = mysql_query('select meta_value from '.$prefix.'usermeta where meta_key = "birthday_day" AND user_id ='.$user_id.'');
 	$day = mysql_fetch_array($sql);
-	$sql2 = mysql_query('select meta_value from wp_usermeta where meta_key = "birthday_month" AND user_id ='.$user_id.'');
+	$sql2 = mysql_query('select meta_value from '.$prefix.'usermeta where meta_key = "birthday_month" AND user_id ='.$user_id.'');
 	$month = mysql_fetch_array($sql2);
-	$sql3 = mysql_query('select meta_value from wp_usermeta where meta_key = "birthday_year" AND user_id ='.$user_id.'');
+	$sql3 = mysql_query('select meta_value from '.$prefix.'usermeta where meta_key = "birthday_year" AND user_id ='.$user_id.'');
 	$yeardb = mysql_fetch_array($sql3);
 	?>
     <select name="day">
@@ -118,7 +120,7 @@ function list_birthdays() {
 	<td>Show Birthday:</td>
 	<td>
 	<?php 
-	$sql2 = mysql_query("select meta_value from wp_usermeta where meta_key = 'birthday_display' AND user_id ='.$user_id.'");
+	$sql2 = mysql_query("select meta_value from ".$prefix."usermeta where meta_key = 'birthday_display' AND user_id ='.$user_id.'");
 	$test2 = mysql_num_rows($sql2);
 	if (empty($test2))
 	{
@@ -174,20 +176,20 @@ function list_birthdays_widget() {
 	echo '<strong> Birthdays today: </strong>';
 
 	echo '<br />';
-			$sqlw = mysql_query('SELECT `user_id` FROM wp_usermeta WHERE `meta_key` = "birthday_month" AND `meta_value` = "'.$thismonthw.'"');
+			$sqlw = mysql_query('SELECT `user_id` FROM '.$prefix.'usermeta WHERE `meta_key` = "birthday_month" AND `meta_value` = "'.$thismonthw.'"');
 
 			while ($user = mysql_fetch_array($sqlw)){
-			$sqlw2 = mysql_query('SELECT `meta_value` FROM wp_usermeta WHERE `meta_key` = "birthday_day" AND `user_id` = "'.$user[0].'"');
+			$sqlw2 = mysql_query('SELECT `meta_value` FROM '.$prefix.'usermeta WHERE `meta_key` = "birthday_day" AND `user_id` = "'.$user[0].'"');
 
 			while ($dayd = mysql_fetch_array($sqlw2)){
-			$sqlw4 = mysql_query('SELECT `meta_value` FROM wp_usermeta WHERE `meta_key` = "birthday_display" AND `user_id` = "'.$user[0].'"');
+			$sqlw4 = mysql_query('SELECT `meta_value` FROM '.$prefix.'usermeta WHERE `meta_key` = "birthday_display" AND `user_id` = "'.$user[0].'"');
 
 			while ($display = mysql_fetch_array($sqlw4)){
 	
 			if ($dayd[0] == $thisdayw && $display[0] == 'y'){
-			$getuser = mysql_query('select user_login from wp_users where ID = '.$user[0].'');
+			$getuser = mysql_query('select user_login from '.$prefix.'users where ID = '.$user[0].'');
 			while ($birthdays = mysql_fetch_array($getuser)){
-			$sqlw3 = mysql_query('select meta_value from wp_usermeta where meta_key = 						"birthday_year" AND user_id ="'.$user[0].'"');
+			$sqlw3 = mysql_query('select meta_value from '.$prefix.'usermeta where meta_key = "birthday_year" AND user_id ="'.$user[0].'"');
 			$yearw = mysql_fetch_array($sqlw3);
 			$age = intval($thisyear) - $yearw[0];
 			echo $birthdays[0] . ' ' . $age . '<br />';
@@ -197,8 +199,6 @@ function list_birthdays_widget() {
 			}
 			}
 			}
-	
-
 }
 
 function widget_birthdays($args) {
