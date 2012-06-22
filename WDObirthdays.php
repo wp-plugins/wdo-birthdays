@@ -163,6 +163,8 @@ function list_birthdays() {
 
 function list_birthdays_widget() {
 
+	global $wpdb;
+	$prefix = $wpdb->prefix;
 	
 	$thismonth = date(M);
 	$thismonthw = date(m);
@@ -177,9 +179,10 @@ function list_birthdays_widget() {
 
 	echo '<br />';
 			$sqlw = mysql_query('SELECT `user_id` FROM '.$prefix.'usermeta WHERE `meta_key` = "birthday_month" AND `meta_value` = "'.$thismonthw.'"');
-
+			
 			while ($user = mysql_fetch_array($sqlw)){
 			$sqlw2 = mysql_query('SELECT `meta_value` FROM '.$prefix.'usermeta WHERE `meta_key` = "birthday_day" AND `user_id` = "'.$user[0].'"');
+
 
 			while ($dayd = mysql_fetch_array($sqlw2)){
 			$sqlw4 = mysql_query('SELECT `meta_value` FROM '.$prefix.'usermeta WHERE `meta_key` = "birthday_display" AND `user_id` = "'.$user[0].'"');
