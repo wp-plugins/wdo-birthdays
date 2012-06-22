@@ -11,10 +11,12 @@ Tested up to: 3.3.2
 
 --------------------
 
-Plugin version 1.1.2
+Plugin version 1.1.3
 
 --------------------
 
 Please note WDO Birthdays should automatically acquire your database prefix, please email if you have difficulties.
+
+1.1.3 - minor bug fix.
 
 
