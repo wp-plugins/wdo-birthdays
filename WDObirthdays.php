@@ -163,6 +163,8 @@ function list_birthdays() {
 
 function list_birthdays_widget() {
 
+	global $wpdb;
+	$prefix = $wpdb->prefix;
 	
 	$thismonth = date(M);
 	$thismonthw = date(m);
